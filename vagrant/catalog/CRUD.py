@@ -64,7 +64,19 @@ def crud_update():
     print 'New price: {}'.format(pizza_napolitana.price)
 
 
+def crud_delete():
+    pizza_house = session.query(Restaurant).filter_by(name='Pizza House').one()
+    session.delete(pizza_house)
+    session.commit()
+
+
 if __name__ == '__main__':
-    # crud_create()
+    crud_create()
     crud_read()
-    # crud_update()
+
+    crud_update()
+    crud_read()
+
+    crud_delete()
+    print '\nAfter delete:\n'
+    crud_read()
