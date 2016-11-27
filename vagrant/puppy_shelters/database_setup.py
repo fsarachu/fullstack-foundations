@@ -34,6 +34,6 @@ class Puppy(Base):
 
 
 # Configuration end
-engine = create_engine('sqlite:///puppyshelters.db')
+engine = create_engine('sqlite:///puppyshelter.db')
 
 Base.metadata.create_all(engine)
