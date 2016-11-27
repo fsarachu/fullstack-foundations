@@ -71,12 +71,14 @@ def crud_delete():
 
 
 if __name__ == '__main__':
+    print '\n-- Create restaurants and menu items--'
     crud_create()
     crud_read()
 
+    print '\n-- Update Napolitana\'s price at Pizza House --'
     crud_update()
     crud_read()
 
+    print '\n-- Delete Pizza House --'
     crud_delete()
-    print '\nAfter delete:\n'
     crud_read()
