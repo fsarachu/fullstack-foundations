@@ -8,6 +8,16 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+
+# Class
+class Restaurant(Base):
+    __tablename__ = 'restaurant'
+
+
+class MenuItem(Base):
+    __tablename__ = 'menu_item'
+
+
 # Configuration end
 engine = create_engine('sqlite:///restaurantmenu.db')
 
