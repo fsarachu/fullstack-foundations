@@ -28,6 +28,7 @@ class Puppy(Base):
     date_of_birth = Column(Date, nullable=False)
     gender = Column(Enum('male', 'female'), nullable=False)
     weight = Column(Numeric(precision=10, scale=2), nullable=False)
+    picture = Column(String(255))
     shelter_id = Column(Integer, ForeignKey('shelter.id'))
     shelter = relationship(Shelter)
 
