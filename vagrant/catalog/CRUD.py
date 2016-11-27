@@ -34,10 +34,15 @@ def crud_create():
 
 
 def crud_read():
-    # All items from all restaurants
-    items = session.query(MenuItem).all()
-    for item in items:
-        print 'At {}: {} -> {}'.format(item.restaurant.name, item.name, item.price)
+    # All restaurants and its items
+    restaurants = session.query(Restaurant).all()
+
+    for restaurant in restaurants:
+        print '  - {} - '.format(restaurant.name)
+        items = session.query(MenuItem).filter_by(restaurant=restaurant)
+        for item in items:
+            print '{} -> {}'.format(item.name, item.price)
+        print '   -----------------   '
 
 
 def crud_update():
@@ -61,5 +66,5 @@ def crud_update():
 
 if __name__ == '__main__':
     # crud_create()
-    # crud_read()
-    crud_update()
+    crud_read()
+    # crud_update()
