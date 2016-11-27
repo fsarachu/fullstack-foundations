@@ -6,3 +6,7 @@ engine = create_engine('sqlite:///puppyshelters.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+
+def all_puppies():
+    return session.query(Puppy).order_by(Puppy.name).all()
