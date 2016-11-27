@@ -17,23 +17,23 @@ session = DBSession()
 
 # Add Shelters
 shelter1 = Shelter(name="Oakland Animal Services", address="1101 29th Ave", city="Oakland", state="California",
-                   zipCode="94601", website="oaklandanimalservices.org")
+                   zipcode="94601", website="oaklandanimalservices.org")
 session.add(shelter1)
 
 shelter2 = Shelter(name="San Francisco SPCA Mission Adoption Center", address="250 Florida St", city="San Francisco",
-                   state="California", zipCode="94103", website="sfspca.org")
+                   state="California", zipcode="94103", website="sfspca.org")
 session.add(shelter2)
 
 shelter3 = Shelter(name="Wonder Dog Rescue", address="2926 16th Street", city="San Francisco", state="California",
-                   zipCode="94103", website="http://wonderdogrescue.org")
+                   zipcode="94103", website="http://wonderdogrescue.org")
 session.add(shelter3)
 
 shelter4 = Shelter(name="Humane Society of Alameda", address="PO Box 1571", city="Alameda", state="California",
-                   zipCode="94501", website="hsalameda.org")
+                   zipcode="94501", website="hsalameda.org")
 session.add(shelter4)
 
 shelter5 = Shelter(name="Palo Alto Humane Society", address="1149 Chestnut St.", city="Menlo Park", state="California",
-                   zipCode="94025", website="paloaltohumane.org")
+                   zipcode="94025", website="paloaltohumane.org")
 session.add(shelter5)
 
 # Add Puppies
@@ -76,13 +76,13 @@ def CreateRandomWeight():
 
 
 for i, x in enumerate(male_names):
-    new_puppy = Puppy(name=x, gender="male", dateOfBirth=CreateRandomAge(), picture=random.choice(puppy_images),
+    new_puppy = Puppy(name=x, gender="male", date_of_birth=CreateRandomAge(), picture=random.choice(puppy_images),
                       shelter_id=randint(1, 5), weight=CreateRandomWeight())
     session.add(new_puppy)
     session.commit()
 
 for i, x in enumerate(female_names):
-    new_puppy = Puppy(name=x, gender="female", dateOfBirth=CreateRandomAge(), picture=random.choice(puppy_images),
+    new_puppy = Puppy(name=x, gender="female", date_of_birth=CreateRandomAge(), picture=random.choice(puppy_images),
                       shelter_id=randint(1, 5), weight=CreateRandomWeight())
     session.add(new_puppy)
     session.commit()
