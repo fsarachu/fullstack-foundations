@@ -47,8 +47,13 @@ def crud_read():
 
 def crud_update():
     # Update pizza 'Napolitana' price
+
+    napolitanas = session.query(MenuItem).filter_by(name='Napolitana')
+    for napolitana in napolitanas:
+        print 'At {}: {} -> {} [id {}]'.format(napolitana.restaurant.name, napolitana.name, napolitana.price,
+                                               napolitana.id)
     # Ooops! We got two items with the same name! Let's get only the one from Pizza House
-    pizza_napolitana = session.query(MenuItem).filter_by(id=3).one()
+    pizza_napolitana = session.query(MenuItem).filter_by(id=1).one()
     pizza_napolitana.price = '$0.80'
     session.add(pizza_napolitana)
     session.commit()
