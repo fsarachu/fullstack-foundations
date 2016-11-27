@@ -15,8 +15,8 @@ class Shelter(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)
     address = Column(String(255), nullable=False)
-    city = Column(String(50), nullable=False)
-    state = Column(String(50), nullable=False)
+    city = Column(String(255), nullable=False)
+    state = Column(String(255), nullable=False)
     zipcode = Column(String(10), nullable=False)
     website = Column(String(255))
 
