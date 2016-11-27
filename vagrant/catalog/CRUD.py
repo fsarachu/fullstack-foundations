@@ -31,3 +31,8 @@ def crud_read():
     items = session.query(MenuItem).all()
     for item in items:
         print '{}: {}'.format(item.name, item.price)
+
+
+if __name__ == '__main__':
+    # crud_create()
+    crud_read()
