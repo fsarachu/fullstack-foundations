@@ -24,3 +24,10 @@ def crud_create():
     session.add(napolitana)
     session.add(chicken)
     session.commit()
+
+
+def crud_read():
+    # All items from all restaurants
+    items = session.query(MenuItem).all()
+    for item in items:
+        print '{}: {}'.format(item.name, item.price)
