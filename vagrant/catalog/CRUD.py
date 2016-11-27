@@ -12,16 +12,23 @@ session = DBSession()
 
 def crud_create():
     # New restaurant
-    my_first_restaurant = Restaurant(name='Milanga House')  # Create new object
-    session.add(my_first_restaurant)  # New object is now staged to be added to the database
+    milanga_house = Restaurant(name='Milanga House')  # Create new object
+    pizza_house = Restaurant(name='Pizza House')
+    session.add(milanga_house)  # New object is now staged to be added to the database
+    session.add(pizza_house)
     session.commit()  # Commit staged changes
 
     # New menu item
-    napolitana = MenuItem(name='Napolitana', description='Tomato sauce, ham and cheese', course='Entree', price='$2.99',
-                          restaurant=my_first_restaurant)
+    pizza_napolitana = MenuItem(name='Napolitana', description='Tomato sauce, ham and cheese', course='Entree',
+                                price='$1.00',
+                                restaurant=pizza_house)
+    milanesa_napolitana = MenuItem(name='Napolitana', description='Tomato sauce, ham and cheese', course='Entree',
+                                   price='$2.99',
+                                   restaurant=milanga_house)
     chicken = MenuItem(name='Pollo', description='Just chicken', course='Entree', price='$1.99',
-                       restaurant=my_first_restaurant)
-    session.add(napolitana)
+                       restaurant=milanga_house)
+    session.add(pizza_napolitana)
+    session.add(milanesa_napolitana)
     session.add(chicken)
     session.commit()
 
