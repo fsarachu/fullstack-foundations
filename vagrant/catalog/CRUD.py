@@ -10,7 +10,7 @@ session = DBSession()
 
 # --- CREATE ---
 
-def create():
+def crud_create():
     # New restaurant
     my_first_restaurant = Restaurant(name='Milanga House')  # Create new object
     session.add(my_first_restaurant)  # New object is now staged to be added to the database
