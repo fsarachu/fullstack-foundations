@@ -4,6 +4,14 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 
 class webserverHandler(BaseHTTPRequestHandler):
+    form = """
+    <form action='/hello' method='post' enctype='multipart/form-data'>
+      <h2>Enter your custom message:</h2>
+      <input type='text' name='message'>
+      <input type='submit' value='Submit'>
+    </form>
+    """
+
     def do_GET(self):
         try:
             if self.path.endswith("/hello"):
@@ -22,6 +30,9 @@ class webserverHandler(BaseHTTPRequestHandler):
                     </head>
                     <body>
                       <h1>Hello!</h1>
+                """
+                output += self.form
+                output += """
                     </body>
                     </html>
                 """
@@ -44,6 +55,9 @@ class webserverHandler(BaseHTTPRequestHandler):
                     <body>
                       <h1>¡Hola!</h1>
                       <a href='/hello'>Go back to Hello!</a>
+                """
+                output += self.form
+                output += """
                     </body>
                     </html>
                 """
@@ -72,6 +86,7 @@ class webserverHandler(BaseHTTPRequestHandler):
             <body>
             """
             output += '<h1>{}</h1>'.format(message_content[0])
+            output += self.form
             output += """
             </body>
             </html>
