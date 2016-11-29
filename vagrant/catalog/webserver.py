@@ -1,4 +1,5 @@
 # coding=utf-8
+import cgi
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 
@@ -50,6 +51,33 @@ class webserverHandler(BaseHTTPRequestHandler):
 
         except IOError:
             self.send_error(404, "File not found: {}".format(self.path))
+
+    def do_POST(self):
+        try:
+            self.send_response(301)
+            self.end_headers()
+            ctype, pdict = cgi.parse_header(self.headers.getheader('Content-Type'))
+            if ctype == 'multipart/form-data':
+                fields = cgi.parse_multipart(self.rfile, pdict)
+                message_content = fields.get('message')
+            output = """
+            <!doctype html>
+            <html lang='en'>
+            <head>
+              <meta charset='UTF-8'>
+              <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+              <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+              <title>Custom Message</title>
+            </head>
+            <body>
+            """
+            output += '<h1>{}</h1>'.format(message_content[0])
+            output += """
+            </body>
+            </html>
+            """
+        except:
+            pass
 
 
 def main():
