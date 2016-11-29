@@ -91,8 +91,9 @@ class webserverHandler(BaseHTTPRequestHandler):
             </body>
             </html>
             """
+            self.wfile.write(output)
         except:
-            pass
+            print "Something went wrong!"
 
 
 def main():
