@@ -2,7 +2,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 
 class webserverHandler(BaseHTTPRequestHandler):
-    def do_get(self):
+    def do_GET(self):
         try:
             if self.path.endswith("/hello"):
                 self.send_response(200)
