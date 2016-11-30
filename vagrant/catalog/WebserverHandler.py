@@ -1,8 +1,7 @@
 import cgi
+import jinja2
 import os
 from BaseHTTPServer import BaseHTTPRequestHandler
-
-from webapp2_extras import jinja2
 
 
 class WebserverHandler(BaseHTTPRequestHandler):
