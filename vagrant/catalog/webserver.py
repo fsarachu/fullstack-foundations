@@ -1,13 +1,13 @@
 # coding=utf-8
 from BaseHTTPServer import HTTPServer
 
-from WebserverHandler import WebserverHandler
+from RequestHandler import RequestHandler
 
 
 def main():
     try:
         port = 8080
-        server = HTTPServer(('', port), WebserverHandler)
+        server = HTTPServer(('', port), RequestHandler)
         print "Web server running on port {}".format(port)
         server.serve_forever()
     except KeyboardInterrupt:

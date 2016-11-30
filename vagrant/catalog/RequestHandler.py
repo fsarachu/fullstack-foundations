@@ -4,7 +4,7 @@ import os
 from BaseHTTPServer import BaseHTTPRequestHandler
 
 
-class WebserverHandler(BaseHTTPRequestHandler):
+class RequestHandler(BaseHTTPRequestHandler):
     TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), '../templates')
     JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR), autoescape=True)
 
