@@ -30,6 +30,13 @@ class RequestHandler(BaseHTTPRequestHandler):
                 restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
                 self.render('restaurants.html', restaurants=restaurants)
 
+            if self.path.endswith("/restaurants/new"):
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/html')
+                self.end_headers()
+
+                self.render('new_restaurant.html')
+
         except IOError:
             self.send_error(404, "File not found: {}".format(self.path))
 
