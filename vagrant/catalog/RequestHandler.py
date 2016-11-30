@@ -42,29 +42,25 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         try:
-            self.send_response(301)
-            self.end_headers()
-            ctype, pdict = cgi.parse_header(self.headers.getheader('Content-Type'))
-            if ctype == 'multipart/form-data':
-                fields = cgi.parse_multipart(self.rfile, pdict)
-                message_content = fields.get('message')
-            output = """
-            <!doctype html>
-            <html lang='en'>
-            <head>
-              <meta charset='UTF-8'>
-              <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-              <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-              <title>Custom Message</title>
-            </head>
-            <body>
-            """
-            output += '<h1>{}</h1>'.format(message_content[0])
-            output += self.form
-            output += """
-            </body>
-            </html>
-            """
-            self.wfile.write(output)
+            if self.path.endswith("/restaurants/new"):
+                self.send_response(201)
+                self.send_header('Content-Type', 'text/html')
+                self.end_headers()
+
+                ctype, pdict = cgi.parse_header(self.headers.getheader('Content-Type'))
+                if ctype == 'multipart/form-data':
+                    fields = cgi.parse_multipart(self.rfile, pdict)
+                    field_content = fields.get('name')
+
+                    new_restaurant = Restaurant(name=field_content[0])
+                    session.add(new_restaurant)
+                    session.commit()
+
+                    restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
+                    self.render('restaurants.html', msg='New restaurant successfully added!', restaurants=restaurants)
+                else:
+                    self.render('new_restaurant.html', msg='Something went wrong! Try again.')
+
+
         except:
             print "Something went wrong!"
