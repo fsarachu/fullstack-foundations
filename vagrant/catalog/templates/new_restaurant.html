@@ -1,8 +1,8 @@
 {% extends "_base.html" %}
 
 {% block content %}
-  {% if error_message %}
-    <p>{{ error_message }}</p>
+  {% if msg %}
+    <p>{{ msg }}</p>
   {% endif %}
   <h2>Add a new restaurant</h2>
   <form action="" method="post" enctype="multipart/form-data">
