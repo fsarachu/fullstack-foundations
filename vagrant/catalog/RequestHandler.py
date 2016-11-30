@@ -1,20 +1,20 @@
 import cgi
 import jinja2
-import os
 from BaseHTTPServer import BaseHTTPRequestHandler
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from database_setup import Base, Restaurant
+
+engine = create_engine('sqlite:///restaurantmenu.db')
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
 
 
 class RequestHandler(BaseHTTPRequestHandler):
-    TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), '../templates')
+    TEMPLATE_DIR = 'templates'
     JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR), autoescape=True)
-
-    form = """
-    <form action='/hello' method='post' enctype='multipart/form-data'>
-      <h2>Enter your custom message:</h2>
-      <input type='text' name='message'>
-      <input type='submit' value='Submit'>
-    </form>
-    """
 
     def render(self, template_name, **kwargs):
         template = self.JINJA_ENV.get_template(template_name)
@@ -22,54 +22,13 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         try:
-            if self.path.endswith("/hello"):
+            if self.path.endswith("/restaurants"):
                 self.send_response(200)
                 self.send_header('Content-Type', 'text/html')
                 self.end_headers()
 
-                output = """
-                    <!doctype html>
-                    <html lang='en'>
-                    <head>
-                        <meta charset='UTF-8'>
-                        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                        <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-                        <title>Hello!</title>
-                    </head>
-                    <body>
-                      <h1>Hello!</h1>
-                """
-                output += self.form
-                output += """
-                    </body>
-                    </html>
-                """
-                self.wfile.write(output)
-
-            if self.path.endswith("/hola"):
-                self.send_response(200)
-                self.send_header('Content-Type', 'text/html')
-                self.end_headers()
-
-                output = """
-                    <!doctype html>
-                    <html lang='en'>
-                    <head>
-                        <meta charset='UTF-8'>
-                        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                        <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-                        <title>¡Hola!</title>
-                    </head>
-                    <body>
-                      <h1>¡Hola!</h1>
-                      <a href='/hello'>Go back to Hello!</a>
-                """
-                output += self.form
-                output += """
-                    </body>
-                    </html>
-                """
-                self.wfile.write(output)
+                restaurants = session.query(Restaurant).all()
+                self.render('restaurants.html', restaurants=restaurants)
 
         except IOError:
             self.send_error(404, "File not found: {}".format(self.path))
