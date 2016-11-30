@@ -1,8 +1,14 @@
 import cgi
+import os
 from BaseHTTPServer import BaseHTTPRequestHandler
+
+from webapp2_extras import jinja2
 
 
 class WebserverHandler(BaseHTTPRequestHandler):
+    TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), '../templates')
+    JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR), autoescape=True)
+
     form = """
     <form action='/hello' method='post' enctype='multipart/form-data'>
       <h2>Enter your custom message:</h2>
@@ -10,6 +16,10 @@ class WebserverHandler(BaseHTTPRequestHandler):
       <input type='submit' value='Submit'>
     </form>
     """
+
+    def render(self, template_name, **kwargs):
+        template = self.JINJA_ENV.get_template(template_name)
+        self.wfile.write(template.render(kwargs))
 
     def do_GET(self):
         try:
