@@ -1,6 +1,9 @@
 {% extends "_base.html" %}
 
 {% block content %}
+  {% if msg %}
+    <p>{{ msg }}</p>
+  {% endif %}
   <h1>Restaurants List</h1>
   {% include "_restaurant_list.html" %}
 {% endblock %}
