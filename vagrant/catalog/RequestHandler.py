@@ -27,7 +27,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_header('Content-Type', 'text/html')
                 self.end_headers()
 
-                restaurants = session.query(Restaurant).all()
+                restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
                 self.render('restaurants.html', restaurants=restaurants)
 
         except IOError:
