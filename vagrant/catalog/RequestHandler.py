@@ -48,10 +48,6 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
             if self.path.endswith("/restaurants/new"):
-                self.send_response(201)
-                self.send_header('Content-Type', 'text/html')
-                self.end_headers()
-
                 ctype, pdict = cgi.parse_header(self.headers.getheader('Content-Type'))
                 if ctype == 'multipart/form-data':
                     fields = cgi.parse_multipart(self.rfile, pdict)
