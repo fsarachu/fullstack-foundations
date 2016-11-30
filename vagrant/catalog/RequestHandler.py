@@ -20,6 +20,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         template = self.JINJA_ENV.get_template(template_name)
         self.wfile.write(template.render(kwargs))
 
+    def redirect(self, url):
+        self.send_response(302)
+        self.send_header('Location', url)
+        self.end_headers()
+
     def do_GET(self):
         try:
             if self.path.endswith("/restaurants"):
@@ -56,8 +61,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     session.add(new_restaurant)
                     session.commit()
 
-                    restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
-                    self.render('restaurants.html', msg='New restaurant successfully added!', restaurants=restaurants)
+                    self.redirect('/restaurants')
                 else:
                     self.render('new_restaurant.html', msg='Something went wrong! Try again.')
 
