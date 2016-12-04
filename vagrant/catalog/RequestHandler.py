@@ -21,6 +21,7 @@ class RequestHandler(BaseHTTPRequestHandler):
     ROUTES['restaurants'] = re.compile('^/restaurants$')
     ROUTES['restaurants_new'] = re.compile('^/restaurants/new$')
     ROUTES['restaurants_edit'] = re.compile('^/restaurants/(\d+)/edit$')
+    ROUTES['restaurants_delete'] = re.compile('^/restaurants/(\d+)/delete$')
 
     def render(self, template_name, http_response=200, **kwargs):
         self.send_response(http_response)
@@ -51,6 +52,15 @@ class RequestHandler(BaseHTTPRequestHandler):
                     self.render('404.html', http_response=404, msg='Restaurant {} doesn\'t exists'.format(id))
                 else:
                     self.render('restaurant_edit.html', restaurant=restaurant)
+
+            if re.match(self.ROUTES['restaurants_delete'], self.path):
+                id = re.search(self.ROUTES['restaurants_delete'], self.path).group(1)
+                restaurant = session.query(Restaurant).filter_by(id=id).first()
+
+                if not restaurant:
+                    self.render('404.html', http_response=404, msg='Restaurant {} doesn\'t exists'.format(id))
+                else:
+                    self.render('restaurant_delete.html', restaurant=restaurant)
 
         except IOError:
             self.send_error(404, "File not found: {}".format(self.path))
