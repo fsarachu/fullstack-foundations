@@ -78,7 +78,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     session.add(new_restaurant)
                     session.commit()
 
-                    self.redirect(self.ROUTES['restaurants'])
+                    self.redirect('/restaurants')
                 else:
                     self.render('new_restaurant.html', msg='Something went wrong! Try again.')
 
