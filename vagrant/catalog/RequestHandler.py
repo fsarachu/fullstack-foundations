@@ -104,5 +104,19 @@ class RequestHandler(BaseHTTPRequestHandler):
                     else:
                         self.render('restaurant_edit.html', msg='Something went wrong! Try again.')
 
+            if re.match(self.ROUTES['restaurants_delete'], self.path):
+                id = re.search(self.ROUTES['restaurants_delete'], self.path).group(1)
+                restaurant = session.query(Restaurant).filter_by(id=id).first()
+
+                if not restaurant:
+                    self.send_response(404)
+                    self.send_header('Content-Type', 'text/html')
+                    self.end_headers()
+                    self.render('404.html', msg='Restaurant {} doesn\'t exists'.format(id))
+                else:
+                    session.delete(restaurant)
+                    session.commit()
+                    self.redirect('/restaurants')
+
         except:
             print "Something went wrong!"
