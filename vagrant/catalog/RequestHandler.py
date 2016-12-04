@@ -27,6 +27,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
+        routes = dict()
+        routes['restaurants'] = re.compile('^/restaurants$')
+        routes['restaurants_new'] = re.compile('^/restaurants/new$')
+        routes['restaurant_edit'] = re.compile('^/restaurants/(\d+)/edit$')
+
         try:
             if self.path.endswith("/restaurants"):
                 self.send_response(200)
@@ -43,11 +48,20 @@ class RequestHandler(BaseHTTPRequestHandler):
 
                 self.render('new_restaurant.html')
 
-            if re.match('/restaurants/(\d+)/edit', self.path):
-                self.send_response(200)
-                self.send_header('Content-Type', 'text/plain')
-                self.end_headers()
-                self.wfile.write('Success!')
+            if re.match(routes['restaurant_edit'], self.path):
+                id = re.search(routes['restaurant_edit'], self.path).group(1)
+                restaurant = session.query(Restaurant).filter_by(id=id).first()
+
+                if not restaurant:
+                    self.send_response(404)
+                    self.send_header('Content-Type', 'text/html')
+                    self.end_headers()
+                    self.render('404.html', msg='Restaurant {} doesn\'t exists'.format(id))
+                else:
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'text/html')
+                    self.end_headers()
+                    self.render('restaurant_edit.html', restaurant=restaurant)
 
         except IOError:
             self.send_error(404, "File not found: {}".format(self.path))
