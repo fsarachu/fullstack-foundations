@@ -21,11 +21,11 @@ def hello_world():
 
     output = ''
 
-    output += '<h1>' + restaurant.name + ' menu:</h1>'
+    output += '<h1>{} menu:</h1>'.format(restaurant.name)
     output += '<ul>'
 
     for item in items:
-        output += '<li>' + item.name + '</li>'
+        output += '<li>{} - {} - {}</li>'.format(item.name, item.description, item.price)
 
     output += '</ul>'
 
