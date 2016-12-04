@@ -4,5 +4,8 @@
 
 {% block content %}
   <h1>404</h1>
-  <p>Nothing to do here... <a href="/">&laquo;Go back home</a></p>
+  {% if msg %}
+    <h3>{{ msg }}</h3>
+  {% endif %}
+  <p><a href="/">&laquo;Go back home</a></p>
 {% endblock %}
