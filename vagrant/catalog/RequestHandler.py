@@ -71,5 +71,28 @@ class RequestHandler(BaseHTTPRequestHandler):
                 else:
                     self.render('restaurant_new.html', msg='Something went wrong! Try again.')
 
+            if re.match(self.ROUTES['restaurants_edit'], self.path):
+                id = re.search(self.ROUTES['restaurants_edit'], self.path).group(1)
+                restaurant = session.query(Restaurant).filter_by(id=id).first()
+
+                if not restaurant:
+                    self.send_response(404)
+                    self.send_header('Content-Type', 'text/html')
+                    self.end_headers()
+                    self.render('404.html', msg='Restaurant {} doesn\'t exists'.format(id))
+                else:
+                    ctype, pdict = cgi.parse_header(self.headers.getheader('Content-Type'))
+                    if ctype == 'multipart/form-data':
+                        fields = cgi.parse_multipart(self.rfile, pdict)
+                        field_content = fields.get('name')
+
+                        restaurant.name = field_content[0]
+                        session.add(restaurant)
+                        session.commit()
+
+                        self.redirect('/restaurants')
+                    else:
+                        self.render('restaurant_edit.html', msg='Something went wrong! Try again.')
+
         except:
             print "Something went wrong!"
