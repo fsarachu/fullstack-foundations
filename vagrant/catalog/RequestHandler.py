@@ -1,5 +1,6 @@
 import cgi
 import jinja2
+import re
 from BaseHTTPServer import BaseHTTPRequestHandler
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -41,6 +42,12 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
 
                 self.render('new_restaurant.html')
+
+            if re.match('/restaurants/(\d+)/edit', self.path):
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/plain')
+                self.end_headers()
+                self.wfile.write('Success!')
 
         except IOError:
             self.send_error(404, "File not found: {}".format(self.path))
