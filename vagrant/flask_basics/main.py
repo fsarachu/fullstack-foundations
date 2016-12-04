@@ -2,7 +2,7 @@ from flask import Flask
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from database_setup import Base
+from database_setup import Base, Restaurant, MenuItem
 
 engine = create_engine('sqlite:///restaurantmenu.db')
 Base.metadata.bind = engine
@@ -16,7 +16,20 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/hello')
 def hello_world():
-    return 'Hello World'
+    restaurant = session.query(Restaurant).first()
+    items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id).order_by(MenuItem.name.asc())
+
+    output = ''
+
+    output += '<h1>' + restaurant.name + ' menu:</h1>'
+    output += '<ul>'
+
+    for item in items:
+        output += '<li>' + item.name + '</li>'
+
+    output += '</ul>'
+
+    return output
 
 
 if __name__ == '__main__':
