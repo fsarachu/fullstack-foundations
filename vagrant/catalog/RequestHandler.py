@@ -17,6 +17,11 @@ class RequestHandler(BaseHTTPRequestHandler):
     TEMPLATE_DIR = 'templates'
     JINJA_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR), autoescape=True)
 
+    ROUTES = dict()
+    ROUTES['restaurants'] = re.compile('^/restaurants$')
+    ROUTES['restaurants_new'] = re.compile('^/restaurants/new$')
+    ROUTES['restaurant_edit'] = re.compile('^/restaurants/(\d+)/edit$')
+
     def render(self, template_name, **kwargs):
         template = self.JINJA_ENV.get_template(template_name)
         self.wfile.write(template.render(kwargs))
@@ -27,11 +32,6 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        routes = dict()
-        routes['restaurants'] = re.compile('^/restaurants$')
-        routes['restaurants_new'] = re.compile('^/restaurants/new$')
-        routes['restaurant_edit'] = re.compile('^/restaurants/(\d+)/edit$')
-
         try:
             if self.path.endswith("/restaurants"):
                 self.send_response(200)
@@ -48,8 +48,8 @@ class RequestHandler(BaseHTTPRequestHandler):
 
                 self.render('new_restaurant.html')
 
-            if re.match(routes['restaurant_edit'], self.path):
-                id = re.search(routes['restaurant_edit'], self.path).group(1)
+            if re.match(ROUTES['restaurant_edit'], self.path):
+                id = re.search(ROUTES['restaurant_edit'], self.path).group(1)
                 restaurant = session.query(Restaurant).filter_by(id=id).first()
 
                 if not restaurant:
