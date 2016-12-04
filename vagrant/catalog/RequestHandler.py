@@ -22,7 +22,10 @@ class RequestHandler(BaseHTTPRequestHandler):
     ROUTES['restaurants_new'] = re.compile('^/restaurants/new$')
     ROUTES['restaurants_edit'] = re.compile('^/restaurants/(\d+)/edit$')
 
-    def render(self, template_name, **kwargs):
+    def render(self, template_name, http_response=200, **kwargs):
+        self.send_response(http_response)
+        self.send_header('Content-Type', 'text/html')
+        self.end_headers()
         template = self.JINJA_ENV.get_template(template_name)
         self.wfile.write(template.render(kwargs))
 
@@ -34,33 +37,19 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         try:
             if re.match(self.ROUTES['restaurants'], self.path):
-                self.send_response(200)
-                self.send_header('Content-Type', 'text/html')
-                self.end_headers()
-
                 restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
                 self.render('restaurants.html', restaurants=restaurants)
 
             if re.match(self.ROUTES['restaurants_new'], self.path):
-                self.send_response(200)
-                self.send_header('Content-Type', 'text/html')
-                self.end_headers()
-
-                self.render('new_restaurant.html')
+                self.render('restaurant_new.html')
 
             if re.match(self.ROUTES['restaurants_edit'], self.path):
                 id = re.search(self.ROUTES['restaurants_edit'], self.path).group(1)
                 restaurant = session.query(Restaurant).filter_by(id=id).first()
 
                 if not restaurant:
-                    self.send_response(404)
-                    self.send_header('Content-Type', 'text/html')
-                    self.end_headers()
-                    self.render('404.html', msg='Restaurant {} doesn\'t exists'.format(id))
+                    self.render('404.html', http_response=404, msg='Restaurant {} doesn\'t exists'.format(id))
                 else:
-                    self.send_response(200)
-                    self.send_header('Content-Type', 'text/html')
-                    self.end_headers()
                     self.render('restaurant_edit.html', restaurant=restaurant)
 
         except IOError:
@@ -80,8 +69,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
                     self.redirect('/restaurants')
                 else:
-                    self.render('new_restaurant.html', msg='Something went wrong! Try again.')
-
+                    self.render('restaurant_new.html', msg='Something went wrong! Try again.')
 
         except:
             print "Something went wrong!"
