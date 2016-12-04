@@ -1,5 +1,5 @@
 {% for restaurant in restaurants %}
   <ul>
-    <li>{{ restaurant.name }} - <a href="/restaurants/{{ restaurant.id }}/edit">Edit</a> - <a href="#">Delete</a></li>
+    <li>{{ restaurant.name }} - <a href="/restaurants/{{ restaurant.id }}/edit">Edit</a> - <a href="/restaurants/{{ restaurant.id }}/delete">Delete</a></li>
   </ul>
 {% endfor %}
