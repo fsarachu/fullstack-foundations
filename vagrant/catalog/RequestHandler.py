@@ -86,10 +86,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 restaurant = session.query(Restaurant).filter_by(id=id).first()
 
                 if not restaurant:
-                    self.send_response(404)
-                    self.send_header('Content-Type', 'text/html')
-                    self.end_headers()
-                    self.render('404.html', msg='Restaurant {} doesn\'t exists'.format(id))
+                    self.render('404.html', http_response=404, msg='Restaurant {} doesn\'t exists'.format(id))
                 else:
                     ctype, pdict = cgi.parse_header(self.headers.getheader('Content-Type'))
                     if ctype == 'multipart/form-data':
