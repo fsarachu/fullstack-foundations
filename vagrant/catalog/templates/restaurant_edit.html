@@ -1,0 +1,17 @@
+{% extends "_base.html" %}
+
+{% set title='Edit Restaurant' %}
+
+{% block content %}
+  {% if msg %}
+    <p>{{ msg }}</p>
+  {% endif %}
+  <h2>Edit Restaurant &quot;{{ restaurant.name }}&quot;</h2>
+  <form action="" method="post" enctype="multipart/form-data">
+    <label>
+      Name:
+      <input type="text" name="name" placeholder="{{ restaurant.name }}" autofocus>
+    </label>
+    <input type="submit" value="Add">
+  </form>
+{% endblock %}
