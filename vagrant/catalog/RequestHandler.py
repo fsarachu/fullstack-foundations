@@ -20,7 +20,7 @@ class RequestHandler(BaseHTTPRequestHandler):
     ROUTES = dict()
     ROUTES['restaurants'] = re.compile('^/restaurants$')
     ROUTES['restaurants_new'] = re.compile('^/restaurants/new$')
-    ROUTES['restaurant_edit'] = re.compile('^/restaurants/(\d+)/edit$')
+    ROUTES['restaurants_edit'] = re.compile('^/restaurants/(\d+)/edit$')
 
     def render(self, template_name, **kwargs):
         template = self.JINJA_ENV.get_template(template_name)
@@ -33,7 +33,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         try:
-            if self.path.endswith("/restaurants"):
+            if re.match(self.ROUTES['restaurants'], self.path):
                 self.send_response(200)
                 self.send_header('Content-Type', 'text/html')
                 self.end_headers()
@@ -41,15 +41,15 @@ class RequestHandler(BaseHTTPRequestHandler):
                 restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
                 self.render('restaurants.html', restaurants=restaurants)
 
-            if self.path.endswith("/restaurants/new"):
+            if re.match(self.ROUTES['restaurants_new'], self.path):
                 self.send_response(200)
                 self.send_header('Content-Type', 'text/html')
                 self.end_headers()
 
                 self.render('new_restaurant.html')
 
-            if re.match(ROUTES['restaurant_edit'], self.path):
-                id = re.search(ROUTES['restaurant_edit'], self.path).group(1)
+            if re.match(self.ROUTES['restaurants_edit'], self.path):
+                id = re.search(self.ROUTES['restaurants_edit'], self.path).group(1)
                 restaurant = session.query(Restaurant).filter_by(id=id).first()
 
                 if not restaurant:
@@ -68,7 +68,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         try:
-            if self.path.endswith("/restaurants/new"):
+            if re.match(self.ROUTES['restaurants_new'], self.path):
                 ctype, pdict = cgi.parse_header(self.headers.getheader('Content-Type'))
                 if ctype == 'multipart/form-data':
                     fields = cgi.parse_multipart(self.rfile, pdict)
@@ -78,7 +78,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     session.add(new_restaurant)
                     session.commit()
 
-                    self.redirect('/restaurants')
+                    self.redirect(self.ROUTES['restaurants'])
                 else:
                     self.render('new_restaurant.html', msg='Something went wrong! Try again.')
 
