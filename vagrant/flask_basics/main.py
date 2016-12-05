@@ -17,7 +17,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/restaurants/')
 def list_restaurants():
-    restaurants = session.query(Restaurant).all()
+    restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
 
     output = ''
 
