@@ -32,6 +32,41 @@ def list_restaurants():
     return output
 
 
+@app.route('/restaurants/<int:restaurant_id>/')
+def single_restaurant(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
+
+    output = ''
+
+    if not restaurant:
+        output += '<h1>Restaurant {} doesn&apos;t exists'.format(restaurant_id)
+    else:
+        items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).order_by(MenuItem.name.asc()).all()
+
+        output += '<h1>{}&apos;s Menu</h1>'.format(restaurant.name)
+
+        output += """
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+        """
+
+        for item in items:
+            output += '<tr><td>{}</td><td>{}</td><td>{}</td></tr>'.format(item.name, item.description, item.price)
+
+        output += """
+            </tbody>
+          </table>
+        """
+
+    return output
+
 
 if __name__ == '__main__':
     app.debug = True
