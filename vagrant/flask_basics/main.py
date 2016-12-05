@@ -39,7 +39,7 @@ def single_restaurant(restaurant_id):
     output = ''
 
     if not restaurant:
-        output += '<h1>Restaurant {} doesn&apos;t exists'.format(restaurant_id)
+        output += '<h1>Restaurant {} doesn&apos;t exist.'.format(restaurant_id)
     else:
         items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).order_by(MenuItem.name.asc()).all()
 
