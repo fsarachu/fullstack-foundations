@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 @app.route('/')
 @app.route('/restaurants/')
-def list_restaurants():
+def restaurants_list():
     restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
 
     output = ''
@@ -33,7 +33,7 @@ def list_restaurants():
 
 
 @app.route('/restaurants/<int:restaurant_id>/')
-def single_restaurant(restaurant_id):
+def restaurant_menu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     output = ''
