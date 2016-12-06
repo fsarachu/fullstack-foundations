@@ -14,13 +14,14 @@
     </label>
     <br><br>
     <label>
-      Description:
-      <input type="text" name="description" value="{{ item.description }}">
+      Price:
+      <input type="text" name="price" value="{{ item.price }}">
     </label>
     <br><br>
     <label>
-      Price:
-      <input type="text" name="price" value="{{ item.price }}">
+      Description:
+      <br>
+      <textarea cols="45" name="description" placeholder="Some descriptive text">{{ item.description }}</textarea>
     </label>
     <br><br>
     <input type="submit" value="Add">
