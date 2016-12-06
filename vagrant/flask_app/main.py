@@ -60,8 +60,8 @@ def restaurant_menu(restaurant_id):
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/new/')
-def newMenuItem(restaurant_id):
-    return "page to create a new menu item. Task 1 complete!"
+def restaurant_menu_new(restaurant_id):
+    return render_template("menu_new.html")
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit/')
