@@ -22,9 +22,19 @@ def restaurant_list():
     return render_template("restaurant_list.html", restaurants=restaurants)
 
 
-@app.route('/restaurants/new')
+@app.route('/restaurants/new/')
 def restaurant_new():
     return render_template("restaurant_new.html")
+
+
+@app.route('/restaurants/<int:restaurant_id>/edit/')
+def restaurant_edit(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id=id).first()
+
+    if not restaurant:
+        return render_template('404.html', http_response=404, msg='Restaurant {} doesn\'t exists'.format(id))
+    else:
+        return render_template('restaurant_edit.html', restaurant=restaurant)
 
 
 @app.route('/restaurants/<int:restaurant_id>/')
