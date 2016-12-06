@@ -29,7 +29,7 @@ def restaurant_new():
 
 @app.route('/restaurants/<int:restaurant_id>/edit/')
 def restaurant_edit(restaurant_id):
-    restaurant = session.query(Restaurant).filter_by(id=id).first()
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
         return render_template('404.html', http_response=404, msg='Restaurant {} doesn\'t exists'.format(id))
@@ -39,7 +39,7 @@ def restaurant_edit(restaurant_id):
 
 @app.route('/restaurants/<int:restaurant_id>/delete/')
 def restaurant_delete(restaurant_id):
-    restaurant = session.query(Restaurant).filter_by(id=id).first()
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
         return render_template('404.html', http_response=404, msg='Restaurant {} doesn\'t exists'.format(id))
