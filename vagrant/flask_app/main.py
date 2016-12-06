@@ -76,7 +76,7 @@ def edit_menu_item(restaurant_id, menu_id):
     if not restaurant:
         return render_template("404.html", msg='Restaurant {} doesn\'t exist'.format(restaurant_id))
     else:
-        item = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, menu_id=menu_id).first()
+        item = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, id=menu_id).first()
 
         if not item:
             return render_template("404.html", msg='Item {} doesn\'t exist'.format(restaurant_id))
