@@ -19,7 +19,7 @@ app = Flask(__name__)
 @app.route('/restaurants/')
 def restaurant_list():
     restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
-    return render_template("restaurants.html", restaurants=restaurants)
+    return render_template("restaurant_list.html", restaurants=restaurants)
 
 
 @app.route('/restaurants/<int:restaurant_id>/')

@@ -1,0 +1,15 @@
+{% extends "_base.html" %}
+
+{% block content %}
+  {% if msg %}
+    <p>{{ msg }}</p>
+  {% endif %}
+  <p><a href="/restaurants/new">Add a new restaurant</a></p>
+  <h1>Restaurants List</h1>
+  {% for restaurant in restaurants %}
+    <ul>
+      <li>{{ restaurant.name }} - <a href="/restaurants/{{ restaurant.id }}/edit">Edit</a> - <a
+          href="/restaurants/{{ restaurant.id }}/delete">Delete</a></li>
+    </ul>
+  {% endfor %}
+{% endblock %}
