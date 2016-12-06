@@ -4,12 +4,27 @@
   {% if msg %}
     <p>{{ msg }}</p>
   {% endif %}
-  <p><a href="/restaurants/new">Add a new restaurant</a></p>
+  <p><a href="/restaurants/new/">Add a new restaurant</a></p>
   <h1>Restaurants List</h1>
-  {% for restaurant in restaurants %}
-    <ul>
-      <li>{{ restaurant.name }} - <a href="/restaurants/{{ restaurant.id }}/edit">Edit</a> - <a
-          href="/restaurants/{{ restaurant.id }}/delete">Delete</a></li>
-    </ul>
-  {% endfor %}
+  <table border="solid">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for restaurant in restaurants %}
+      <tr>
+        <td>{{ restaurant.id }}</td>
+        <td>{{ restaurant.name }}</td>
+        <td><a href="/restaurants/{{ restaurant.id }}/edit/">Edit</a></td>
+        <td><a href="/restaurants/{{ restaurant.id }}/delete/">Delete</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
 {% endblock %}
