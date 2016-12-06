@@ -1,0 +1,11 @@
+{% extends "_base.html" %}
+
+{% set title='404 Not Found' %}
+
+{% block content %}
+  <h1>404</h1>
+  {% if msg %}
+    <h3>{{ msg }}</h3>
+  {% endif %}
+  <p><a href="/">&laquo;Go back home</a></p>
+{% endblock %}

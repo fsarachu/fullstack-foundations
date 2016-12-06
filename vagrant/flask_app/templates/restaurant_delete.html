@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+
+{% set title='Delete Restaurant' %}
+
+{% block content %}
+  {% if msg %}
+    <p>{{ msg }}</p>
+  {% endif %}
+  <h2>Are you sure you want to completely remove the restaurant &quot;{{ restaurant.name }}&quot;</h2>
+  <form action="" method="post" enctype="multipart/form-data">
+    <input type="submit" value="Delete">
+  </form>
+  <p><a href="/restaurants">&laquo; Cancel</a></p>
+{% endblock %}
