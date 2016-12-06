@@ -1,0 +1,23 @@
+{% extends "_base.html" %}
+
+{% block content %}
+  <h1>{{ restaurant.name|capitalize }}&apos;s Menu</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in menu %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.price }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
