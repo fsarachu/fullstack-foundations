@@ -1,7 +1,9 @@
 {% extends "_base.html" %}
 
+{% set title = '{} Menu'.format(restaurant.name) %}
+
 {% block content %}
-  <h1>{{ restaurant.name|capitalize }} Menu</h1>
+  <h1>{{ title }}</h1>
   <table border="solid">
     <thead>
     <tr>
