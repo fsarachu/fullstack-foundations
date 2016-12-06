@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+
+{% set title='Edit menu item'.format(restaurant.name) %}
+
+{% block content %}
+  {% if msg %}
+    <p>{{ msg }}</p>
+  {% endif %}
+  <h2>{{ title }}</h2>
+  <form action="" method="post" enctype="multipart/form-data">
+    <label>
+      Name:
+      <input type="text" name="name" value="{{ item.name }}">
+    </label>
+    <br><br>
+    <label>
+      Description:
+      <input type="text" name="description" value="{{ item.description }}">
+    </label>
+    <br><br>
+    <label>
+      Price:
+      <input type="text" name="price" value="{{ item.price }}">
+    </label>
+    <br><br>
+    <input type="submit" value="Add">
+  </form>
+{% endblock %}
