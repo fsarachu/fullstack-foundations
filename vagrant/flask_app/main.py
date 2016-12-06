@@ -51,36 +51,11 @@ def restaurant_delete(restaurant_id):
 def restaurant_menu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
-    output = ''
-
     if not restaurant:
-        output += '<h1>Restaurant {} doesn&apos;t exist.'.format(restaurant_id)
+        return render_template("404.html", msg='Restaurant {} doesn\'t exists'.format(restaurant_id))
     else:
-        items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).order_by(MenuItem.name.asc()).all()
-
-        output += '<h1>{}&apos;s Menu</h1>'.format(restaurant.name)
-
-        output += """
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-        """
-
-        for item in items:
-            output += '<tr><td>{}</td><td>{}</td><td>{}</td></tr>'.format(item.name, item.description, item.price)
-
-        output += """
-            </tbody>
-          </table>
-        """
-
-    return output
+        menu = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).order_by(MenuItem.name.asc()).all()
+        return render_template("restaurant_menu.html", restaurant=restaurant, menu=menu)
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/new/')
