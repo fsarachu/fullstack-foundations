@@ -19,7 +19,7 @@
     {% for restaurant in restaurants %}
       <tr>
         <td>{{ restaurant.id }}</td>
-        <td>{{ restaurant.name }}</td>
+        <td><a href="/restaurants/{{ restaurant.id }}/">{{ restaurant.name }}</a></td>
         <td><a href="/restaurants/{{ restaurant.id }}/edit/">Edit</a></td>
         <td><a href="/restaurants/{{ restaurant.id }}/delete/">Delete</a></td>
       </tr>
