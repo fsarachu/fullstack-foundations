@@ -61,7 +61,12 @@ def restaurant_menu(restaurant_id):
 
 @app.route('/restaurants/<int:restaurant_id>/menu/new/')
 def restaurant_menu_new(restaurant_id):
-    return render_template("menu_new.html")
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
+
+    if not restaurant:
+        return render_template("404.html", msg='Restaurant {} doesn\'t exists'.format(restaurant_id))
+    else:
+        return render_template("menu_new.html", restaurant=restaurant)
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit/')
