@@ -22,6 +22,11 @@ def restaurant_list():
     return render_template("restaurant_list.html", restaurants=restaurants)
 
 
+@app.route('/restaurants/new')
+def restaurant_new():
+    return render_template("restaurant_new.html")
+
+
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurant_menu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
