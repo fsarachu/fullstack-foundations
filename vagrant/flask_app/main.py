@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import render_template
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -18,18 +19,7 @@ app = Flask(__name__)
 @app.route('/restaurants/')
 def restaurants_list():
     restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
-
-    output = ''
-
-    output += '<h1>Restaurants List</h1>'
-    output += '<ul>'
-
-    for restaurant in restaurants:
-        output += '<li><a href="/restaurants/{}">{}</a></li>'.format(restaurant.id, restaurant.name)
-
-    output += '</ul>'
-
-    return output
+    return render_template("restaurants.html", restaurants=restaurants)
 
 
 @app.route('/restaurants/<int:restaurant_id>/')
