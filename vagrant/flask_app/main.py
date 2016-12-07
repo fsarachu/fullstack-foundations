@@ -60,7 +60,7 @@ def restaurant_menu(restaurant_id):
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/new/')
-def restaurant_menu_new(restaurant_id):
+def new_menu_item(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
