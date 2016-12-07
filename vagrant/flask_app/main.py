@@ -1,6 +1,5 @@
 from flask import Flask
 from flask import render_template
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
