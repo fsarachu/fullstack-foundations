@@ -85,8 +85,18 @@ def edit_menu_item(restaurant_id, menu_id):
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete/')
-def deleteMenuItem(restaurant_id, menu_id):
-    return "page to delete a menu item. Task 3 complete!"
+def delete_menu_item(restaurant_id, menu_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
+
+    if not restaurant:
+        return render_template("404.html", msg='Restaurant {} doesn\'t exist'.format(restaurant_id))
+    else:
+        item = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, id=menu_id).first()
+
+        if not item:
+            return render_template("404.html", msg='Item {} doesn\'t exist'.format(restaurant_id))
+        else:
+            return render_template("menu_delete.html", restaurant=restaurant, item=item)
 
 
 if __name__ == '__main__':
