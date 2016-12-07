@@ -33,7 +33,7 @@ def restaurant_new():
         session.add(new_restaurant)
         session.commit()
 
-        redirect(url_for('restaurant_list'))
+        return redirect(url_for('restaurant_list'))
 
 
 @app.route('/restaurants/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
