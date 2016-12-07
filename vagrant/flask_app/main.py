@@ -59,7 +59,7 @@ def restaurant_menu(restaurant_id):
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/new/')
-def new_menu_item(restaurant_id):
+def menu_item_new(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
@@ -69,7 +69,7 @@ def new_menu_item(restaurant_id):
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit/')
-def edit_menu_item(restaurant_id, menu_id):
+def menu_item_edit(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
@@ -84,7 +84,7 @@ def edit_menu_item(restaurant_id, menu_id):
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete/')
-def delete_menu_item(restaurant_id, menu_id):
+def menu_item_delete(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:

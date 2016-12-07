@@ -7,7 +7,7 @@
         <p>{{ msg }}</p>
     {% endif %}
     <h2>{{ title }}</h2>
-    <form action="{{ url_for('new_menu_item', restaurant_id=restaurant.id) }}" method="post">
+    <form action="{{ url_for('menu_item_new', restaurant_id=restaurant.id) }}" method="post">
         <label>
             Name:
             <input type="text" name="name" placeholder="Item name">
