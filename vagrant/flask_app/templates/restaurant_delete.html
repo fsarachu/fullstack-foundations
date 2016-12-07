@@ -3,12 +3,12 @@
 {% set title='Delete Restaurant' %}
 
 {% block content %}
-  {% if msg %}
-    <p>{{ msg }}</p>
-  {% endif %}
-  <h2>Are you sure you want to completely remove the restaurant &quot;{{ restaurant.name }}&quot;</h2>
-  <form action="" method="post" enctype="multipart/form-data">
-    <input type="submit" value="Delete">
-  </form>
-  <p><a href="/restaurants">&laquo; Cancel</a></p>
+    {% if msg %}
+        <p>{{ msg }}</p>
+    {% endif %}
+    <h2>Are you sure you want to completely remove the restaurant &quot;{{ restaurant.name }}&quot;</h2>
+    <form action="{{ url_for('restaurant_delete', restaurant_id=restaurant.id) }}" method="post">
+        <input type="submit" value="Delete">
+    </form>
+    <p><a href="{{ url_for('restaurant_list') }}">&laquo; Cancel</a></p>
 {% endblock %}

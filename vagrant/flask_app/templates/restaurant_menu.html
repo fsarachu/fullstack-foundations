@@ -3,28 +3,30 @@
 {% set title = '{} Menu'.format(restaurant.name) %}
 
 {% block content %}
-  <h1>{{ title }}</h1>
-  <p><a href="/restaurants/{{ restaurant.id }}/menu/new/">Add a new item</a></p>
-  <table border="solid">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for item in menu %}
-      <tr>
-        <td>{{ item.name }}</td>
-        <td>{{ item.description }}</td>
-        <td>{{ item.price }}</td>
-        <td><a href="/restaurants/{{ restaurant.id }}/menu/{{ item.id }}/edit/">Edit</a></td>
-        <td><a href="/restaurants/{{ restaurant.id }}/menu/{{ item.id }}/delete/">Delete</a></td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+    <h1>{{ title }}</h1>
+    <p><a href="{{ url_for('new_menu_item', restaurant_id=restaurant.id) }}">Add a new item</a></p>
+    <table border="solid">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in menu %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.price }}</td>
+                <td><a href="{{ url_for('edit_menu_item', restaurant_id=restaurant.id, menu_id=item.id) }}">Edit</a>
+                </td>
+                <td><a href="{{ url_for('delete_menu_item', restaurant_id=restaurant.id, menu_id=item.id) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

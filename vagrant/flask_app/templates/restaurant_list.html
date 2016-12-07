@@ -1,30 +1,31 @@
 {% extends "_base.html" %}
 
 {% block content %}
-  {% if msg %}
-    <p>{{ msg }}</p>
-  {% endif %}
-  <p><a href="/restaurants/new/">Add a new restaurant</a></p>
-  <h1>Restaurants List</h1>
-  <table border="solid">
-    <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for restaurant in restaurants %}
-      <tr>
-        <td>{{ restaurant.id }}</td>
-        <td><a href="/restaurants/{{ restaurant.id }}/">{{ restaurant.name }}</a></td>
-        <td><a href="/restaurants/{{ restaurant.id }}/edit/">Edit</a></td>
-        <td><a href="/restaurants/{{ restaurant.id }}/delete/">Delete</a></td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+    {% if msg %}
+        <p>{{ msg }}</p>
+    {% endif %}
+    <p><a href="{{ url_for('restaurant_new') }}">Add a new restaurant</a></p>
+    <h1>Restaurants List</h1>
+    <table border="solid">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants %}
+            <tr>
+                <td>{{ restaurant.id }}</td>
+                <td><a href="{{ url_for('restaurant_menu', restaurant_id=restaurant.id) }}">{{ restaurant.name }}</a>
+                </td>
+                <td><a href="{{ url_for('restaurant_edit', restaurant_id=restaurant.id) }}">Edit</a></td>
+                <td><a href="{{ url_for('restaurant_delete', restaurant_id=restaurant.id) }}">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}

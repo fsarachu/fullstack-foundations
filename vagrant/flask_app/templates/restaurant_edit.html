@@ -3,16 +3,17 @@
 {% set title='Edit Restaurant' %}
 
 {% block content %}
-  {% if msg %}
-    <p>{{ msg }}</p>
-  {% endif %}
-  <h2>Edit Restaurant &quot;{{ restaurant.name }}&quot;</h2>
-  <form action="" method="post" enctype="multipart/form-data">
-    <label>
-      Name:
-      <input type="text" name="name" value="{{ restaurant.name }}">
-    </label>
-    <br><br>
-    <input type="submit" value="Save">
-  </form>
+    {% if msg %}
+        <p>{{ msg }}</p>
+    {% endif %}
+    <h2>Edit Restaurant &quot;{{ restaurant.name }}&quot;</h2>
+    <form action="{{ url_for('restaurant_edit', restaurant_id=restaurant.id) }}" method="post">
+        <label>
+            Name:
+            <input type="text" name="name" value="{{ restaurant.name }}">
+        </label>
+        <br><br>
+        <input type="submit" value="Save">
+    </form>
+    <p><a href="{{ url_for('restaurant_list') }}">&laquo; Cancel</a></p>
 {% endblock %}
