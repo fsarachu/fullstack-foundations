@@ -1,6 +1,8 @@
 from flask import Flask
+from flask import redirect
 from flask import render_template
 from flask import request
+from flask import url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -27,7 +29,11 @@ def restaurant_new():
     if request.method == 'GET':
         return render_template("restaurant_new.html")
     elif request.method == 'POST':
-        pass
+        new_restaurant = Restaurant(name=request.form['name'])
+        session.add(new_restaurant)
+        session.commit()
+
+        redirect(url_for('restaurant_list'))
 
 
 @app.route('/restaurants/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
