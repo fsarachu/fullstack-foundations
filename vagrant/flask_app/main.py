@@ -63,7 +63,10 @@ def restaurant_delete(restaurant_id):
         if request.method == 'GET':
             return render_template('restaurant_delete.html', restaurant=restaurant)
         elif request.method == 'POST':
-            pass
+            session.delete(restaurant)
+            session.commit()
+
+            return redirect(url_for('restaurant_list'))
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/')
