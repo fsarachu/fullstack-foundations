@@ -46,7 +46,11 @@ def restaurant_edit(restaurant_id):
         if request.method == 'GET':
             return render_template('restaurant_edit.html', restaurant=restaurant)
         elif request.method == 'POST':
-            pass
+            restaurant.name = request.form['name']
+            session.add(restaurant)
+            session.commit()
+
+            return redirect(url_for('restaurant_list'))
 
 
 @app.route('/restaurants/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
