@@ -139,7 +139,10 @@ def menu_item_delete(restaurant_id, menu_id):
             if request.method == 'GET':
                 return render_template("menu_delete.html", restaurant=restaurant, item=item)
             elif request.method == 'POST':
-                pass
+                session.delete(item)
+                session.commit()
+
+                return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
 
 
 if __name__ == '__main__':
