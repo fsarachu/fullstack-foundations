@@ -9,6 +9,7 @@
         <thead>
         <tr>
             <th>Name</th>
+            <th>Course</th>
             <th>Description</th>
             <th>Price</th>
             <th>Edit</th>
@@ -19,6 +20,7 @@
         {% for item in menu %}
             <tr>
                 <td>{{ item.name }}</td>
+                <td>{{ item.course }}</td>
                 <td>{{ item.description }}</td>
                 <td>{{ item.price }}</td>
                 <td><a href="{{ url_for('menu_item_edit', restaurant_id=restaurant.id, menu_id=item.id) }}">Edit</a>
