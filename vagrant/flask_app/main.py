@@ -114,7 +114,14 @@ def menu_item_edit(restaurant_id, menu_id):
             if request.method == 'GET':
                 return render_template("menu_edit.html", restaurant=restaurant, item=item)
             elif request.method == 'POST':
-                pass
+                item.name = request.form['name']
+                item.description = request.form['description']
+                item.price = request.form['price']
+                item.course = request.form['course']
+                session.add(item)
+                session.commit()
+
+                return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete/', methods=['GET', 'POST'])
