@@ -34,7 +34,7 @@ def restaurant_new():
         session.add(new_restaurant)
         session.commit()
 
-        flash('Success! The restaurant "{}" is now on the list!'.format(new_restaurant.name))
+        flash('Restaurant added!')
 
         return redirect(url_for('restaurant_list'))
 
