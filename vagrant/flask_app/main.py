@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import flash
 from flask import redirect
 from flask import render_template
 from flask import request
@@ -32,6 +33,8 @@ def restaurant_new():
         new_restaurant = Restaurant(name=request.form['name'])
         session.add(new_restaurant)
         session.commit()
+
+        flash('Success! The restaurant "{}" is now on the list!'.format(new_restaurant.name))
 
         return redirect(url_for('restaurant_list'))
 
@@ -146,5 +149,6 @@ def menu_item_delete(restaurant_id, menu_id):
 
 
 if __name__ == '__main__':
+    app.secret_key = '5UP3R53CR37'
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
