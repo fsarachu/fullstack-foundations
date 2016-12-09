@@ -91,7 +91,12 @@ def menu_item_new(restaurant_id):
         if request.method == 'GET':
             return render_template("menu_new.html", restaurant=restaurant)
         elif request.method == 'POST':
-            pass
+            new_item = MenuItem(name=request.form['name'], description=request.form['description'],
+                                price=request.form['price'], course=request.form['course'], restaurant=restaurant)
+            session.add(new_item)
+            session.commit()
+
+            return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit/', methods=['GET', 'POST'])
