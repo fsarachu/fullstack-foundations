@@ -13,13 +13,23 @@
         </div>
     </div>
 
-    <h2>Add a new restaurant</h2>
-    <form action="{{ url_for('restaurant_new') }}" method="post">
-        <label>
-            Name:
-            <input type="text" name="name" placeholder="Name" autofocus>
-        </label>
-        <input type="submit" value="Add">
-    </form>
-    <p><a href="{{ url_for('restaurant_list') }}">&laquo; Cancel</a></p>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h2>{{ title }}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <form action="{{ url_for('restaurant_new') }}" method="post">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" type="text" name="name" placeholder="Name" autofocus>
+                </div>
+
+                <input class="btn btn-success btn-lg btn-block" type="submit" value="Add">
+                <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('restaurant_list') }}">Cancel</a>
+            </form>
+        </div>
+    </div>
 {% endblock %}
