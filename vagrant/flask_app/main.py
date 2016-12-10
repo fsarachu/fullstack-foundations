@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import flash
+from flask import jsonify
 from flask import redirect
 from flask import render_template
 from flask import request
@@ -156,6 +157,19 @@ def menu_item_delete(restaurant_id, menu_id):
                 flash('Item deleted!')
 
                 return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
+
+
+# API endpoint
+@app.route('/restaurants/<int:restaurant_id>/menu/JSON')
+@app.route('/restaurants/<int:restaurant_id>/JSON')
+def restaurant_menu_json(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
+
+    if not restaurant:
+        return jsonify(Error='Restaurant {} doesn\'t exist'.format(restaurant_id)), 404
+    else:
+        menu = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).order_by(MenuItem.name.asc()).all()
+        return jsonify(MenuItems=[item.serialize for item in menu])
 
 
 if __name__ == '__main__':
