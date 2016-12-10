@@ -23,13 +23,13 @@ app = Flask(__name__)
 @app.route('/restaurants/')
 def restaurant_list():
     restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
-    return render_template("restaurant_list.html", restaurants=restaurants)
+    return render_template("restaurants.html", restaurants=restaurants)
 
 
 @app.route('/restaurant/new/', methods=['GET', 'POST'])
 def restaurant_new():
     if request.method == 'GET':
-        return render_template("restaurant_new.html")
+        return render_template("newrestaurant.html")
     elif request.method == 'POST':
         new_restaurant = Restaurant(name=request.form['name'])
         session.add(new_restaurant)
@@ -48,7 +48,7 @@ def restaurant_edit(restaurant_id):
         return render_template('404.html', msg='Restaurant {} doesn\'t exist'.format(restaurant_id))
     else:
         if request.method == 'GET':
-            return render_template('restaurant_edit.html', restaurant=restaurant)
+            return render_template('editrestaurant.html', restaurant=restaurant)
         elif request.method == 'POST':
             restaurant.name = request.form['name']
             session.add(restaurant)
@@ -67,7 +67,7 @@ def restaurant_delete(restaurant_id):
         return render_template('404.html', msg='Restaurant {} doesn\'t exist'.format(restaurant_id))
     else:
         if request.method == 'GET':
-            return render_template('restaurant_delete.html', restaurant=restaurant)
+            return render_template('deleterestaurant.html', restaurant=restaurant)
         elif request.method == 'POST':
             session.delete(restaurant)
             session.commit()
@@ -85,7 +85,7 @@ def restaurant_menu(restaurant_id):
         return render_template("404.html", msg='Restaurant {} doesn\'t exist'.format(restaurant_id)), 404
     else:
         menu = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).order_by(MenuItem.name.asc()).all()
-        return render_template("restaurant_menu.html", restaurant=restaurant, menu=menu)
+        return render_template("menu.html", restaurant=restaurant, menu=menu)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
@@ -96,7 +96,7 @@ def menu_item_new(restaurant_id):
         return render_template("404.html", msg='Restaurant {} doesn\'t exist'.format(restaurant_id)), 404
     else:
         if request.method == 'GET':
-            return render_template("menu_new.html", restaurant=restaurant)
+            return render_template("newmenuitem.html", restaurant=restaurant)
         elif request.method == 'POST':
             new_item = MenuItem(name=request.form['name'], description=request.form['description'],
                                 price=request.form['price'], course=request.form['course'], restaurant=restaurant)
@@ -121,7 +121,7 @@ def menu_item_edit(restaurant_id, menu_id):
             return render_template("404.html", msg='Item {} doesn\'t exist'.format(restaurant_id)), 404
         else:
             if request.method == 'GET':
-                return render_template("menu_edit.html", restaurant=restaurant, item=item)
+                return render_template("editmenuitem.html", restaurant=restaurant, item=item)
             elif request.method == 'POST':
                 item.name = request.form['name']
                 item.description = request.form['description']
@@ -148,7 +148,7 @@ def menu_item_delete(restaurant_id, menu_id):
             return render_template("404.html", msg='Item {} doesn\'t exist'.format(restaurant_id)), 404
         else:
             if request.method == 'GET':
-                return render_template("menu_delete.html", restaurant=restaurant, item=item)
+                return render_template("deletemenuitem.html", restaurant=restaurant, item=item)
             elif request.method == 'POST':
                 session.delete(item)
                 session.commit()
