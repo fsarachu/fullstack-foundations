@@ -16,14 +16,24 @@
         </div>
     </div>
 
-    <h2>Edit Restaurant &quot;{{ restaurant.name }}&quot;</h2>
-    <form action="{{ url_for('restaurant_edit', restaurant_id=restaurant.id) }}" method="post">
-        <label>
-            Name:
-            <input type="text" name="name" value="{{ restaurant.name }}">
-        </label>
-        <br><br>
-        <input type="submit" value="Save">
-    </form>
-    <p><a href="{{ url_for('restaurant_list') }}">&laquo; Cancel</a></p>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h2>Edit Restaurant &quot;{{ restaurant.name }}&quot;</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <form action="{{ url_for('restaurant_edit', restaurant_id=restaurant.id) }}" method="post">
+                <div class="form-group">
+                    <label for="restaurant-name">Name</label>
+                    <input id="restaurant-name" class="form-control" type="text" name="name"
+                           value="{{ restaurant.name }}">
+                </div>
+
+                <input class="btn btn-success btn-lg btn-block" type="submit" value="Save">
+                <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('restaurant_list') }}">Cancel</a>
+            </form>
+        </div>
+    </div>
 {% endblock %}
