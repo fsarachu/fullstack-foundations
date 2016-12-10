@@ -53,6 +53,8 @@ def restaurant_edit(restaurant_id):
             session.add(restaurant)
             session.commit()
 
+            flash('Restaurant edited!')
+
             return redirect(url_for('restaurant_list'))
 
 
@@ -68,6 +70,8 @@ def restaurant_delete(restaurant_id):
         elif request.method == 'POST':
             session.delete(restaurant)
             session.commit()
+
+            flash('Restaurant deleted!')
 
             return redirect(url_for('restaurant_list'))
 
@@ -99,6 +103,8 @@ def menu_item_new(restaurant_id):
             session.add(new_item)
             session.commit()
 
+            flash('Item added!')
+
             return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
 
 
@@ -124,6 +130,8 @@ def menu_item_edit(restaurant_id, menu_id):
                 session.add(item)
                 session.commit()
 
+                flash('Item edited!')
+
                 return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
 
 
@@ -144,6 +152,8 @@ def menu_item_delete(restaurant_id, menu_id):
             elif request.method == 'POST':
                 session.delete(item)
                 session.commit()
+
+                flash('Item deleted!')
 
                 return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
 
