@@ -13,9 +13,19 @@
         </div>
     </div>
 
-    <h2>Are you sure you want to completely remove the restaurant &quot;{{ restaurant.name }}&quot;</h2>
-    <form action="{{ url_for('restaurant_delete', restaurant_id=restaurant.id) }}" method="post">
-        <input type="submit" value="Delete">
-    </form>
-    <p><a href="{{ url_for('restaurant_list') }}">&laquo; Cancel</a></p>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h2>Are you sure you want to completely remove the restaurant &quot;{{ restaurant.name }}&quot;</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <form action="{{ url_for('restaurant_delete', restaurant_id=restaurant.id) }}" method="post">
+                <input class="btn btn-danger btn-lg btn-block" type="submit" value="Delete">
+                <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('restaurant_list') }}">Cancel</a>
+            </form>
+        </div>
+    </div>
+
 {% endblock %}
