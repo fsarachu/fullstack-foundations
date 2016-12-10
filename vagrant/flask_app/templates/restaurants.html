@@ -31,14 +31,14 @@
                     <tr>
                         <td>{{ restaurant.id }}</td>
                         <td>
-                            <a href="{{ url_for('restaurant_menu', restaurant_id=restaurant.id) }}">{{ restaurant.name }}</a>
+                            <a href="{{ url_for('showMenu', restaurant_id=restaurant.id) }}">{{ restaurant.name }}</a>
                         </td>
                         <td>
-                            <a class="text-info" href="{{ url_for('restaurant_edit', restaurant_id=restaurant.id) }}">Edit</a>
+                            <a class="text-info" href="{{ url_for('editRestaurant', restaurant_id=restaurant.id) }}">Edit</a>
                         </td>
                         <td>
                             <a class="text-danger"
-                               href="{{ url_for('restaurant_delete', restaurant_id=restaurant.id) }}">Delete</a>
+                               href="{{ url_for('deleteRestaurant', restaurant_id=restaurant.id) }}">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -47,6 +47,6 @@
         </div>
     </div>
     <div class="row">
-        <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('restaurant_new') }}">Add a new restaurant</a>
+        <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('newRestaurant') }}">Add a new restaurant</a>
     </div>
 {% endblock %}

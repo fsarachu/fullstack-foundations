@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-xs-12">
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('restaurant_list') }}">Restaurants</a></li>
+                <li><a href="{{ url_for('showRestaurants') }}">Restaurants</a></li>
                 <li class="active">New</li>
             </ul>
         </div>
@@ -21,7 +21,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <form action="{{ url_for('restaurant_new') }}" method="post">
+            <form action="{{ url_for('newRestaurant') }}" method="post">
                 <div class="form-group">
                     <label for="restaurant-name">Name</label>
                     <input id="restaurant-name" class="form-control" type="text" name="name" placeholder="Name"
@@ -29,7 +29,7 @@
                 </div>
 
                 <input class="btn btn-success btn-lg btn-block" type="submit" value="Add">
-                <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('restaurant_list') }}">Cancel</a>
+                <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('showRestaurants') }}">Cancel</a>
             </form>
         </div>
     </div>

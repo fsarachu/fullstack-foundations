@@ -7,9 +7,9 @@
     <div class="row">
         <div class="col-xs-12">
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('restaurant_list') }}">Restaurants</a></li>
+                <li><a href="{{ url_for('showRestaurants') }}">Restaurants</a></li>
                 <li>
-                    <a href="{{ url_for('restaurant_menu', restaurant_id = restaurant.id) }}">{{ restaurant.name }}</a>
+                    <a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">{{ restaurant.name }}</a>
                 </li>
                 <li class="active">Delete</li>
             </ul>
@@ -24,9 +24,9 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <form action="{{ url_for('restaurant_delete', restaurant_id=restaurant.id) }}" method="post">
+            <form action="{{ url_for('deleteRestaurant', restaurant_id=restaurant.id) }}" method="post">
                 <input class="btn btn-danger btn-lg btn-block" type="submit" value="Delete">
-                <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('restaurant_list') }}">Cancel</a>
+                <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('showRestaurants') }}">Cancel</a>
             </form>
         </div>
     </div>

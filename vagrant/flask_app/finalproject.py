@@ -21,13 +21,13 @@ app = Flask(__name__)
 
 @app.route('/')
 @app.route('/restaurants/')
-def restaurant_list():
+def showRestaurants():
     restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
     return render_template("restaurants.html", restaurants=restaurants)
 
 
 @app.route('/restaurant/new/', methods=['GET', 'POST'])
-def restaurant_new():
+def newRestaurant():
     if request.method == 'GET':
         return render_template("newrestaurant.html")
     elif request.method == 'POST':
@@ -37,11 +37,11 @@ def restaurant_new():
 
         flash('Restaurant added!')
 
-        return redirect(url_for('restaurant_list'))
+        return redirect(url_for('showRestaurants'))
 
 
 @app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
-def restaurant_edit(restaurant_id):
+def editRestaurant(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
@@ -56,11 +56,11 @@ def restaurant_edit(restaurant_id):
 
             flash('Restaurant edited!')
 
-            return redirect(url_for('restaurant_list'))
+            return redirect(url_for('showRestaurants'))
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
-def restaurant_delete(restaurant_id):
+def deleteRestaurant(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
@@ -74,11 +74,11 @@ def restaurant_delete(restaurant_id):
 
             flash('Restaurant deleted!')
 
-            return redirect(url_for('restaurant_list'))
+            return redirect(url_for('showRestaurants'))
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/')
-def restaurant_menu(restaurant_id):
+def showMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
@@ -89,7 +89,7 @@ def restaurant_menu(restaurant_id):
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
-def menu_item_new(restaurant_id):
+def newMenuItem(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
@@ -105,11 +105,11 @@ def menu_item_new(restaurant_id):
 
             flash('Item added!')
 
-            return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
+            return redirect(url_for('showMenu', restaurant_id=restaurant_id))
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit/', methods=['GET', 'POST'])
-def menu_item_edit(restaurant_id, menu_id):
+def editMenuItem(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
@@ -132,11 +132,11 @@ def menu_item_edit(restaurant_id, menu_id):
 
                 flash('Item edited!')
 
-                return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
+                return redirect(url_for('showMenu', restaurant_id=restaurant_id))
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete/', methods=['GET', 'POST'])
-def menu_item_delete(restaurant_id, menu_id):
+def deleteMenuItem(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
@@ -155,7 +155,7 @@ def menu_item_delete(restaurant_id, menu_id):
 
                 flash('Item deleted!')
 
-                return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
+                return redirect(url_for('showMenu', restaurant_id=restaurant_id))
 
 
 # API endpoints

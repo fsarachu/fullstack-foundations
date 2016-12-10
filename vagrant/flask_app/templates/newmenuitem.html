@@ -7,12 +7,12 @@
     <div class="row">
         <div class="col-xs-12">
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('restaurant_list') }}">Restaurants</a></li>
+                <li><a href="{{ url_for('showRestaurants') }}">Restaurants</a></li>
                 <li>
-                    <a href="{{ url_for('restaurant_menu', restaurant_id = restaurant.id) }}">{{ restaurant.name }}</a>
+                    <a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">{{ restaurant.name }}</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('restaurant_menu', restaurant_id = restaurant.id) }}">Menu</a>
+                    <a href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Menu</a>
                 </li>
                 <li class="active">New</li>
             </ul>
@@ -27,7 +27,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <form action="{{ url_for('menu_item_new', restaurant_id = restaurant.id) }}" method="post">
+            <form action="{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}" method="post">
                 <div class="form-group">
                     <label class="control-label" for="item-name">Name</label>
                     <input id="item-name" class="form-control" type="text" name="name" autofocus>
@@ -51,7 +51,7 @@
 
                 <input class="btn btn-success btn-lg btn-block" type="submit" value="Add">
                 <a class="btn btn-primary btn-lg btn-block"
-                   href="{{ url_for('restaurant_menu', restaurant_id=restaurant.id) }}">Cancel</a>
+                   href="{{ url_for('showMenu', restaurant_id=restaurant.id) }}">Cancel</a>
             </form>
         </div>
     </div>
