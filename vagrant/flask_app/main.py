@@ -159,7 +159,8 @@ def menu_item_delete(restaurant_id, menu_id):
                 return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
 
 
-# API endpoint
+# API endpoints
+
 @app.route('/restaurants/<int:restaurant_id>/menu/JSON')
 @app.route('/restaurants/<int:restaurant_id>/JSON')
 def restaurant_menu_json(restaurant_id):
@@ -170,6 +171,21 @@ def restaurant_menu_json(restaurant_id):
     else:
         menu = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).order_by(MenuItem.name.asc()).all()
         return jsonify(MenuItems=[item.serialize for item in menu])
+
+
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+def menu_item_json(restaurant_id, menu_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
+
+    if not restaurant:
+        return jsonify(Error='Restaurant {} doesn\'t exist'.format(restaurant_id)), 404
+    else:
+        item = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, id=menu_id).first()
+
+        if not item:
+            return jsonify(Error='Item {} doesn\'t exist'.format(menu_id)), 404
+        else:
+            return jsonify(MenuItem=item.serialize)
 
 
 if __name__ == '__main__':
