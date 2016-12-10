@@ -10,21 +10,9 @@
 <body>
 
 <div class="container">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="alert alert-success alert-dismissible">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-    {% endwith %}
-
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
+            {% include "_flash_messages.html" %}
             {% block content %}
             {% endblock %}
         </div>
