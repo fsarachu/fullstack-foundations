@@ -78,7 +78,6 @@ def restaurant_delete(restaurant_id):
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/')
-@app.route('/restaurants/<int:restaurant_id>/')
 def restaurant_menu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
@@ -162,7 +161,6 @@ def menu_item_delete(restaurant_id, menu_id):
 # API endpoints
 
 @app.route('/restaurants/<int:restaurant_id>/menu/JSON')
-@app.route('/restaurants/<int:restaurant_id>/JSON')
 def restaurant_menu_json(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
