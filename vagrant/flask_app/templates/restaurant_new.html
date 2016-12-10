@@ -23,8 +23,9 @@
         <div class="col-xs-12">
             <form action="{{ url_for('restaurant_new') }}" method="post">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input class="form-control" type="text" name="name" placeholder="Name" autofocus>
+                    <label for="restaurant-name">Name</label>
+                    <input id="restaurant-name" class="form-control" type="text" name="name" placeholder="Name"
+                           autofocus>
                 </div>
 
                 <input class="btn btn-success btn-lg btn-block" type="submit" value="Add">
