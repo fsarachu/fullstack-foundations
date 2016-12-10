@@ -26,7 +26,7 @@ def restaurant_list():
     return render_template("restaurant_list.html", restaurants=restaurants)
 
 
-@app.route('/restaurants/new/', methods=['GET', 'POST'])
+@app.route('/restaurant/new/', methods=['GET', 'POST'])
 def restaurant_new():
     if request.method == 'GET':
         return render_template("restaurant_new.html")
@@ -40,7 +40,7 @@ def restaurant_new():
         return redirect(url_for('restaurant_list'))
 
 
-@app.route('/restaurants/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 def restaurant_edit(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
@@ -59,7 +59,7 @@ def restaurant_edit(restaurant_id):
             return redirect(url_for('restaurant_list'))
 
 
-@app.route('/restaurants/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def restaurant_delete(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
@@ -77,7 +77,7 @@ def restaurant_delete(restaurant_id):
             return redirect(url_for('restaurant_list'))
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/')
+@app.route('/restaurant/<int:restaurant_id>/menu/')
 def restaurant_menu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
@@ -88,7 +88,7 @@ def restaurant_menu(restaurant_id):
         return render_template("restaurant_menu.html", restaurant=restaurant, menu=menu)
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
 def menu_item_new(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
@@ -108,7 +108,7 @@ def menu_item_new(restaurant_id):
             return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit/', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit/', methods=['GET', 'POST'])
 def menu_item_edit(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
@@ -135,7 +135,7 @@ def menu_item_edit(restaurant_id, menu_id):
                 return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete/', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete/', methods=['GET', 'POST'])
 def menu_item_delete(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
@@ -160,7 +160,7 @@ def menu_item_delete(restaurant_id, menu_id):
 
 # API endpoints
 
-@app.route('/restaurants/<int:restaurant_id>/menu/JSON')
+@app.route('/restaurant/<int:restaurant_id>/menu/JSON')
 def restaurant_menu_json(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
@@ -171,7 +171,7 @@ def restaurant_menu_json(restaurant_id):
         return jsonify(MenuItems=[item.serialize for item in menu])
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
 def menu_item_json(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
