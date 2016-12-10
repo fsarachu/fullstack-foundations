@@ -3,9 +3,16 @@
 {% set title='Delete Restaurant' %}
 
 {% block content %}
-    {% if msg %}
-        <p>{{ msg }}</p>
-    {% endif %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('restaurant_list') }}">Restaurants</a></li>
+                <li class="active">Delete Restaurant</li>
+            </ul>
+        </div>
+    </div>
+
     <h2>Are you sure you want to completely remove the restaurant &quot;{{ restaurant.name }}&quot;</h2>
     <form action="{{ url_for('restaurant_delete', restaurant_id=restaurant.id) }}" method="post">
         <input type="submit" value="Delete">

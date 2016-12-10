@@ -3,9 +3,17 @@
 {% set title='Edit menu item'.format(restaurant.name) %}
 
 {% block content %}
-    {% if msg %}
-        <p>{{ msg }}</p>
-    {% endif %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('restaurant_list') }}">Restaurants</a></li>
+                <li><a href="{{ url_for('restaurant_menu', restaurant_id = restaurant.id) }}">{{ restaurant.name }}</a></li>
+                <li class="active">Edit menu item</li>
+            </ul>
+        </div>
+    </div>
+
     <h2>{{ title }}</h2>
     <form action="{{ url_for('menu_item_edit', restaurant_id=restaurant.id, menu_id=item.id) }}" method="post">
         <label>
