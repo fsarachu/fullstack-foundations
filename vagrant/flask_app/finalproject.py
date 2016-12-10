@@ -159,9 +159,14 @@ def deleteMenuItem(restaurant_id, menu_id):
 
 
 # API endpoints
+@app.route('/restaurants/JSON')
+def showRestaurantsJSON():
+    restaurants = session.query(Restaurant).order_by(Restaurant.name.asc()).all()
+    return jsonify(Restaurants=[restaurant.serialize for restaurant in restaurants])
+
 
 @app.route('/restaurant/<int:restaurant_id>/menu/JSON')
-def restaurant_menu_json(restaurant_id):
+def showMenuJSON(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
@@ -172,7 +177,7 @@ def restaurant_menu_json(restaurant_id):
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
-def menu_item_json(restaurant_id, menu_id):
+def showMenuItemJSON(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
 
     if not restaurant:
